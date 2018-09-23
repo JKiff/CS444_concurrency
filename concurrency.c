@@ -10,3 +10,7 @@ int main(){
 int produceRandom(int lo, int hi){
 	return (abs(genrand_int32()) % (hi + 1 - lo)) + lo;
 }
+struct bufferNode{
+	int value;
+	int hangTime;
+}
