@@ -1,4 +1,4 @@
 default:
-	gcc -std=c99 concurrency.c -o con
+	gcc -pthread -std=c99 concurrency.c -o con
 run:
 	./con
