@@ -1,4 +1,4 @@
 default:
-	gcc -std=c99 concurrency.c mersenne.c -o con
+	gcc -std=c99 concurrency.c -o con
 run:
 	./con
