@@ -1,0 +1,178 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}	% Font package
+%\usepackage{amsmath}
+\usepackage[vmargin=.75in, hmargin=.75in]{geometry}
+\usepackage{graphicx}	% For including graphics
+%\usepackage[colorinlistoftodos]{todonotes}
+\newcommand\tab[1][1cm]{\hspace*{#1}}	% Controls tab spacing for /tab
+\newenvironment{question}[2][Question]	{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}
+{\end{trivlist}} % Creates /question object
+
+\begin{document}
+%{\fontfamily{lmss}\selectfont
+
+\begin{titlepage}
+\vspace*{\fill}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+%----------------------------------------------------------------------------------------
+%TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+{ \huge \bfseries CS444 Assignment 1}\\[0.4cm] % Title of your document
+
+%----------------------------------------------------------------------------------------
+%HEADING SECTIONS
+%----------------------------------------------------------------------------------------
+
+\textsc{\LARGE Jason Kiff, Terri Hewitt, Jesse Chick, Stephanie Hughes, and Adam Barton}\\[0.5cm] % Name of your university/college
+\textsc{\Large Operating Systems II}\\[0.5cm] % Major heading such as course name
+\textsc{\large Fall 2018}\\[2.5cm] % Minor heading such as course title
+
+
+%\HRule \\[0.8cm]
+\begin{minipage}{.6\textwidth}
+%\HRule \\[0.8cm]
+\textbf{\large Abstract} \\
+\HRule \\[0.4cm]
+Write an abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore mana aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+\\[0.4cm]
+\HRule \\[1.5cm]
+\end{minipage}
+%\HRule \\[1.5cm]
+
+                %----------------------------------------------------------------------------------------
+                %DATE SECTION
+                %-----------------    -----------------------------------------------------------------------
+
+{\large \today}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%----------------------------------------------------------------------------------------
+%LOGO SECTION
+%------   ----------------------------------------------------------------------------------
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+%----------------------------------------------------------------------------------------
+
+\vfill % Fill the rest of the page with whitespace
+
+
+
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Log of commands used}
+\label{sec:introduction}
+
+\begin{itemize}
+\item cd ~
+\item git clone git://git.yoctoproject.org/linux-yocto-3.19
+\item cd linux-yocto-3.19/
+\item git checkout tags/v3.19.2
+\item cp -r /scratch/files ~
+\item cd ~/files
+\item source /scratch/opt/environment-setup-i586-poky-linux
+\item qemu-system-i386 -gdb tcp::6321 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
+\end{itemize}
+
+\section{Explanation of Flags in qemu Command-Line}
+\label{sec:flags}
+
+\subsection{-gdb Flag}
+Here, explain the concept of a 2-DEG in GaAs/AlGaAs. What is a 2-DEG and why does it arise?
+
+\subsection{-kernel Flag}
+-kernel bzImage use 'bzImage' as kernel image
+Provide the location of the kernel image to use. The kernel image is a .bz compressed file.
+
+\subsection{-S Flag}
+"Freezes" CPU at startup. 'c' can be used to start execution.
+
+\subsection{-nographic Flag}
+Disables graphical output and redirects serial I/Os to console.  
+
+\subsection{-drive Flag}
+file=file -- use 'file' as a drive image.
+The -drive option allows you to specify the location of the drive image you want to use. Additional options are available and supplied via comma-separated-values to specify further information about the drive image. On our command line we have also specified the 'if' option which specifies the type of the file system (virtio).
+
+\subsection{-enable-kvm Flag}
+Enables KVM full virtualization support so that operating systems and programs can run on entirely virtual hardware.
+
+\subsection{-net Flag}
+Use of '-net' without any options indicates zero network devices.
+
+\subsection{-usb Flag}
+Enable the USB driver.
+
+\subsection{-localtime Flag}
+Specify the RTC option. Other options are 'utc' and 'date'.
+
+\subsection{--no-reboot Flag}
+Exits instead of rebooting. Adding this option will not allow the VM to reboot.
+
+\subsection{--append Flag}
+-append cmdline use 'cmdline' as kernel command line
+Adds extra option to the kernel command line.
+
+
+\section{Concurrency Assignment}
+\begin{question}{1}
+What do you think the main point of this assignment is?
+\end{question}
+
+To refamiliarize ourselves with C. We have had prior experience in OS1 with programming in parallel. This assignment gets us thinking back to our experiences programming in parallel and to demonstrate this through a producer-consumer problem.
+
+\begin{question}{2}
+How did you personally approach the problem? Design decisions, algorithm, etc.
+\end{question}
+
+\begin{question}{3}
+How did you ensure your solution was correct? Testing details, for instance.
+\end{question}
+
+\begin{question}{4}
+What did you learn?
+\end{question}
+
+\section{Version Control Log}
+-- TODO at the very end...
+
+\section{Work Log}
+
+\textit{\textbf{23 September, 2018}} \\\\
+\textbf{Kernel:} \\\\
+\indent Today we attempted to get everything set up for the kernel. As the assignment had not been assigned yet we were trying to get a head start by looking through McGrath's assignment 1 description. We split up the work and all followed the command line options we wrote out at the top of this report. We attempted to start the emulator using the qemu command, we saw it stop and wait for execution from the GDB command. We were unable to connect to the tcp port with GDB at this point as the instructions seemed to be unclear to us.
+\\\\
+\textbf{Concurrency:} \\\\
+\indent We started development on the concurrency assignment, working to get the Mersenne Twister to generate random values. We were able to do this, create a makefile, and get the git repository set up. We then started looking into and experimenting with different ways to output the git log into a table form.
+\\\\
+
+\noindent
+\textit{\textbf{another date}} \\\\
+\textbf{Kernel:} \\
+\indent Insert text here
+\\\\
+\textbf{Concurrency:} \\
+\indent Insert text here
+\\\\
+
+\noindent
+\textit{\textbf{another date}} \\\\
+\textbf{Kernel:} \\
+\indent Insert text here
+\\\\
+\textbf{Concurrency:} \\
+\indent Insert text here
+\\\\
+%}
+\end{document}
