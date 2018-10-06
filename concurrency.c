@@ -22,9 +22,29 @@ pthread_mutex_t lock;
 int buffer_index = -1;
 
 // This function produces a random number with the mersenne method genrand_int32
-// TODO: Add hardware randomization support from what the assignment says
+
 int produceRandom(int lo, int hi) {
-	return (abs(genrand_int32()) % (hi + 1 - lo)) + lo;
+	unsigned int eax;
+	unsigned int ebx;
+	unsigned int ecx;
+	unsigned int edx;
+
+	int randNum = -1;
+
+	eax = 0x01;
+
+	__asm__ __volatile__(
+				"cpuid;"
+				:"=a"(eax), "=b"(ebx), "=c"(ecx), "=d"(edx)
+				:"a"(eax)
+			);
+	if(ecx & 0x40000000){	// If the 30th bit is set, CPU supports rdrand
+		randNum = 3;	// TODO: Produce random number using rdrand
+	} else {	// The 30th bit in ECX is not set, use Mersenne
+		randNum = (abs(genrand_int32()) % (hi + 1 - lo)) + lo;
+	}
+
+	return randNum;
 }
 
 // This function takes the buffer and increments each item forward in the queue after an item is removed from the front of the queue
