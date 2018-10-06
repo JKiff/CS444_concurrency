@@ -28,8 +28,9 @@ int produceRandom(int lo, int hi) {
 	unsigned int ebx;
 	unsigned int ecx;
 	unsigned int edx;
+	unsigned int rand32;
 
-	int randNum = -1;
+	int randNum = 0;
 
 	eax = 0x01;
 
@@ -39,7 +40,8 @@ int produceRandom(int lo, int hi) {
 				:"a"(eax)
 			);
 	if(ecx & 0x40000000){	// If the 30th bit is set, CPU supports rdrand
-		randNum = 3;	// TODO: Produce random number using rdrand
+		__builtin_ia32_rdrand32_step(&rand32);	// Produce random number using rdrand
+		randNum = (int)(rand32 % (hi + 1 - lo) + lo);	
 	} else {	// The 30th bit in ECX is not set, use Mersenne
 		randNum = (abs(genrand_int32()) % (hi + 1 - lo)) + lo;
 	}
