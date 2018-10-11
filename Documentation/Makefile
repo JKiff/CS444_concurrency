@@ -31,5 +31,5 @@ aread:
 	acroread ${filename}.pdf
 													
 clean:
-	rm -f ${filename}.{ps,pdf,log,aux,out,dvi,bbl,blg}
+	rm -f ${filename}.{ps,pdf,log,aux,out,dvi,bbl,blg,toc}
 
