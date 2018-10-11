@@ -78,7 +78,7 @@ void *producer(void *ptr) {
 			pthread_mutex_lock(&lock);
 
 			// If the buffer is full, wait for a consumer to consume and then retry
-			if (buffer_index >= BUFFER_SIZE) {
+			if (buffer_index >= BUFFER_SIZE - 1) {
 				pthread_mutex_unlock(&lock);
 				continue;
 			}
@@ -89,7 +89,7 @@ void *producer(void *ptr) {
 			buffer[buffer_index] = new_buff_val;
 			complete = 1;
 			printf("Producer produced value %d\n", new_buff_val.value);
-			printf("Size of buffer: %d\n", buffer_index);
+			printf("Size of buffer: %d\n", buffer_index + 1);
 			// Remove the lock
 			pthread_mutex_unlock(&lock);
 		}
@@ -125,7 +125,7 @@ void *consumer(void *ptr) {
 			reconfigure_queue();
 			complete = 1;
 			printf("Consumer consumed value %d\n", buffer_val);
-			printf("Size of buffer: %d\n", buffer_index);
+			printf("Size of buffer: %d\n", buffer_index + 1);
 			// Remove the lock
 			pthread_mutex_unlock(&lock);
 		}
