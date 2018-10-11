@@ -19,7 +19,7 @@ struct bufferNode buffer[BUFFER_SIZE];
 // Create the mutex for control of the buffer
 pthread_mutex_t lock;
 // Create a variable that keeps track of the size of the buffer
-int buffer_index = -1;
+int buffer_index = 0;
 
 // This function produces a random number with the mersenne method genrand_int32
 
@@ -51,7 +51,7 @@ int produceRandom(int lo, int hi) {
 
 // This function takes the buffer and increments each item forward in the queue after an item is removed from the front of the queue
 void reconfigure_queue() {
-	for (int i = 0; i < buffer_index-1; i++) {
+	for (int i = 0; i < buffer_index; i++) {
 		buffer[i] = buffer[i+1];
 	}
 }
@@ -78,7 +78,7 @@ void *producer(void *ptr) {
 			pthread_mutex_lock(&lock);
 
 			// If the buffer is full, wait for a consumer to consume and then retry
-			if (buffer_index >= BUFFER_SIZE - 1) {
+			if (buffer_index >= BUFFER_SIZE) {
 				pthread_mutex_unlock(&lock);
 				continue;
 			}
@@ -89,7 +89,7 @@ void *producer(void *ptr) {
 			buffer[buffer_index] = new_buff_val;
 			complete = 1;
 			printf("Producer produced value %d\n", new_buff_val.value);
-			printf("Size of buffer: %d\n", buffer_index + 1);
+			printf("Size of buffer: %d\n", buffer_index);
 			// Remove the lock
 			pthread_mutex_unlock(&lock);
 		}
@@ -110,7 +110,7 @@ void *consumer(void *ptr) {
 			pthread_mutex_lock(&lock);
 
 			// If there are no items on the buffer, wait for a producer to add something
-			if (buffer_index == -1) {
+			if (buffer_index == 0) {
 				pthread_mutex_unlock(&lock);
 				continue;
 			}
@@ -125,7 +125,7 @@ void *consumer(void *ptr) {
 			reconfigure_queue();
 			complete = 1;
 			printf("Consumer consumed value %d\n", buffer_val);
-			printf("Size of buffer: %d\n", buffer_index + 1);
+			printf("Size of buffer: %d\n", buffer_index);
 			// Remove the lock
 			pthread_mutex_unlock(&lock);
 		}
