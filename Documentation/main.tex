@@ -161,7 +161,6 @@ Exits instead of rebooting. Adding this option will not allow the VM to reboot.
 -append cmdline use 'cmdline' as kernel command line
 Adds extra option to the kernel command line.
 
-
 \section{Concurrency Assignment}
 \begin{question}{1}
 What do you think the main point of this assignment is?
@@ -173,13 +172,19 @@ To refamiliarize ourselves with C. We have had prior experience in OS1 with prog
 How did you personally approach the problem? Design decisions, algorithm, etc.
 \end{question}
 
+We started working on the problem from the bottom up. We started with what we knew how to code, the data structure for the buffer nodes. Then we worked on getting the randomization to work. After we tested that the randomization worked, we started working on creating consumers and producers to add and remove nodes from our buffer. Finally, we added in the assembly code to use rdrand if it can be used on the host. 
+
 \begin{question}{3}
 How did you ensure your solution was correct? Testing details, for instance.
 \end{question}
 
+To ensure our solution was correct, we tested using various numbers of consumers and producers. We found that using only one consumer and one producer would cause the buffer to remain fairly empty most of the time. We also tested our program using 32 producers and 1 consumer to cause our buffer to reach the maximum limit to ensure that the buffer didn't overflow.
+
 \begin{question}{4}
 What did you learn?
 \end{question}
+
+We learned more about some of the other random number generators, like rdrand and Mersenne Twister, and the difference between how these functions generate random numbers. In addition, we also discovered how to write in-line assembly. 
 
 \section{Version Control Log}
 -- TODO at the very end...
