@@ -126,7 +126,7 @@ Operating Systems II Assignment 1 has our group document our work as we progress
 \label{sec:flags}
 
 \subsection{-gdb Flag}
-Here, explain the concept of a 2-DEG in GaAs/AlGaAs. What is a 2-DEG and why does it arise?
+The -gdb flag sets up a gdbserver to allow us to connect to the kernel using gdb and the port that is provided as the argument next on the command line.
 
 \subsection{-kernel Flag}
 -kernel bzImage use 'bzImage' as kernel image
@@ -195,21 +195,64 @@ What did you learn?
 \\\\
 
 \noindent
-\textit{\textbf{another date}} \\\\
+\textit{\textbf{25 September, 2018}} \\\\
 \textbf{Kernel:} \\
-\indent Insert text here
+\indent Did not make any changes to kernel.
 \\\\
 \textbf{Concurrency:} \\
-\indent Insert text here
+\indent Got the initial functionality working with a baseline makefile. These changes introduced the producer and consumer functionality to the script but some additional changes such as the rdrand32 needs to be implemented and code should be cleaned up. Previously we had added the struct and baseline c code to the file. Today we made changes that added the producer and consumer functionality. Comments need to be added.
 \\\\
 
 \noindent
-\textit{\textbf{another date}} \\\\
+\textit{\textbf{26 September, 2018}} \\\\
 \textbf{Kernel:} \\
-\indent Insert text here
+\indent No kernel changes.
 \\\\
 \textbf{Concurrency:} \\
-\indent Insert text here
+\indent Added comments to concurrency code.
 \\\\
+
+\noindent
+\textit{\textbf{27 September, 2018}} \\\\
+\textbf{Documentation:} \\
+\indent We then worked on our makefile for tex and committed both our makefile and an initial set of documentation written in tex.
+\\\\
+
+\noindent
+\textit{\textbf{26 September, 2018}} \\\\
+\textbf{Kernel:} \\
+\indent No kernel changes.
+\\\\
+\textbf{Concurrency:} \\
+\indent No concurrency changes.
+\\\\
+
+\noindent
+\textit{\textbf{2 October, 2018}} \\\\
+\textbf{Kernel:} \\
+\indent We had struggled to run and connect GDB to the kernel that was waiting for us earlier. Today we asked questions during recitation and then went to office hours with the teacher to ask about it. Immediately we realized it was because prior to connecting with GDB we did not source the environment file. Once we found this out we were able to connect with GDB using \$GDB and had no problems.
+\\\\
+\textbf{Concurrency:} \\
+\indent No concurrency changes.
+\\\\
+
+\noindent
+\textit{\textbf{6/7 October, 2018}} \\\\
+\textbf{Kernel:} \\
+\indent No kernel changes.
+\\\\
+\textbf{Concurrency:} \\
+\indent We investigated the rdrand32 and implemented it in the concurrency code.
+\\\\
+
+\noindent
+\textit{\textbf{11 October, 2018}} \\\\
+\textbf{Documentation:} \\
+\indent We got together to work on completing the assignment to turn it in, we cleaned up the documentation, and added our work and commit log.
+\\\\
+\textbf{Concurrency:} \\
+\indent Fixed a minor printing issue to make sure it prints out the buffer size properly.
+\\\\
+
 %}
 \end{document}
