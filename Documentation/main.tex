@@ -1,8 +1,8 @@
 \documentclass{article}
 
-\usepackage[english]{babel}
+%\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}	% Font package
+%\usepackage{lmodern}	% Font package
 %\usepackage{amsmath}
 \usepackage[vmargin=.75in, hmargin=.75in]{geometry}
 \usepackage{graphicx}	% For including graphics
@@ -11,6 +11,7 @@
 \newenvironment{question}[2][Question]	{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}
 {\end{trivlist}} % Creates /question object
+
 
 \begin{document}
 %{\fontfamily{lmss}\selectfont
@@ -74,15 +75,50 @@ Write an abstract here. Lorem ipsum dolor sit amet, consectetur adipiscing elit,
 \section{Log of commands used}
 \label{sec:introduction}
 
+\subsection{Running Pre-built Kernel}
+
 \begin{itemize}
-\item cd ~
-\item git clone git://git.yoctoproject.org/linux-yocto-3.19
+\item \$ cd ~
+\item \$ git clone git://git.yoctoproject.org/linux-yocto-3.19
+\item \$ cd linux-yocto-3.19/
+\item \$ git checkout tags/v3.19.2
+\item \$ cp -r /scratch/files ~
+\item \$ cd ~/files
+\item\$  source /scratch/opt/environment-setup-i586-poky-linux
+\item \$ qemu-system-i386 -gdb tcp::5517 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
+\end{itemize}
+
+\subsection{Building the Kernel}
+
+\begin{itemize}
+    \item \$ cd /scratch/fall2018
+    \item \$ mkdir group17
+    \item \$ cd group17/
+    \item cp ../../files ./
+    \item git clone git://git.yoctoproject.org/linux-yocto-3.19
 \item cd linux-yocto-3.19/
 \item git checkout tags/v3.19.2
-\item cp -r /scratch/files ~
-\item cd ~/files
+\item cd ../files/
 \item source /scratch/opt/environment-setup-i586-poky-linux
-\item qemu-system-i386 -gdb tcp::6321 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
+\item cd ../linux-yocto-3.19/
+\item cp ../files/config-3.19.2-yocto-standard ./.config
+\item make -j4 all
+\item cd ../files/
+\item qemu-system-i386 -gdb tcp::5517 -S -nographic -kernel ../linux-yocto-3.19/arch/x86/boot/bzImage -drive file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
+\end{itemize}
+
+\subsection{Running the Kernel using GDB}
+
+\begin{itemize}
+\item cd /scratch/fall2018/group17
+\item cd ./files
+\item source /scratch/opt/environment-setup-i586-poky-linux
+\item qemu-system-i386 -gdb tcp::5517 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
+\item Open up a new console window
+\item cd /scratch/fall2018/group17
+\item cd ./files
+\item source /scratch/opt/environment-setup-i586-poky-linux
+\item \$GDB
 \end{itemize}
 
 \section{Explanation of Flags in qemu Command-Line}
