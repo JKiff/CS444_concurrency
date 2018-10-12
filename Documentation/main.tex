@@ -1,12 +1,11 @@
-\documentclass{article}
-
-%\usepackage[english]{babel}
+\documentclass[10pt,a4paper,english]{article}
+\usepackage{longtable,hyperref}
+\newcommand{\longtableendfoot}{Please continue at the next page}
 \usepackage[utf8]{inputenc}
-%\usepackage{lmodern}	% Font package
-%\usepackage{amsmath}
+\usepackage{url}
+\usepackage{textcomp}
 \usepackage[vmargin=.75in, hmargin=.75in]{geometry}
 \usepackage{graphicx}	% For including graphics
-%\usepackage[colorinlistoftodos]{todonotes}
 \newcommand\tab[1][1cm]{\hspace*{#1}}	% Controls tab spacing for /tab
 \newenvironment{question}[2][Question]	{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}
@@ -78,12 +77,12 @@ Operating Systems II Assignment 1 has our group document our work as we progress
 \subsection{Running Pre-built Kernel}
 
 \begin{itemize}
-\item \$ cd ~
+\item \$ cd $\sim$
 \item \$ git clone git://git.yoctoproject.org/linux-yocto-3.19
 \item \$ cd linux-yocto-3.19/
 \item \$ git checkout tags/v3.19.2
-\item \$ cp -r /scratch/files ~
-\item \$ cd ~/files
+\item \$ cp -r /scratch/files $\sim$
+\item \$ cd $\sim$/files
 \item\$  source /scratch/opt/environment-setup-i586-poky-linux
 \item \$ qemu-system-i386 -gdb tcp::5517 -S -nographic -kernel bzImage-qemux86.bin -drive file=core-image-lsb-sdk-qemux86.ext4,if=virtio -enable-kvm -net none -usb -localtime --no-reboot --append "root=/dev/vda rw console=ttyS0 debug"
 \end{itemize}
@@ -119,17 +118,16 @@ Operating Systems II Assignment 1 has our group document our work as we progress
 \item cd ./files
 \item source /scratch/opt/environment-setup-i586-poky-linux
 \item \$GDB
-\item remote target :5517
 \end{itemize}
 
 \section{Explanation of Flags in qemu Command-Line}
 \label{sec:flags}
 
 \subsection{-gdb Flag}
-The -gdb flag sets up a gdbserver to allow us to connect to the kernel using gdb and the port that is provided as the argument next on the command line.
+The -gdb flag sets up a gdb server to allow us to connect to the kernel using gdb and the port that is provided as the argument next on the command line.
 
 \subsection{-kernel Flag}
--kernel bzImage use 'bzImage' as kernel image
+-kernel bzImage use 'bzImage' as kernel image\\
 Provide the location of the kernel image to use. The kernel image is a .bz compressed file.
 
 \subsection{-S Flag}
@@ -146,7 +144,7 @@ The -drive option allows you to specify the location of the drive image you want
 Enables KVM full virtualization support so that operating systems and programs can run on entirely virtual hardware.
 
 \subsection{-net Flag}
-Use of '-net' without any options indicates zero network devices.
+Use of '-net' without any options or '-net none' indicates zero network devices.
 
 \subsection{-usb Flag}
 Enable the USB driver.
@@ -155,11 +153,12 @@ Enable the USB driver.
 Specify the RTC option. Other options are 'utc' and 'date'.
 
 \subsection{--no-reboot Flag}
-Exits instead of rebooting. Adding this option will not allow the VM to reboot.
+Exits instead of rebooting. Adding this option will not allow the VM to reboot, so no reboot upon execution.
 
 \subsection{--append Flag}
 -append cmdline use 'cmdline' as kernel command line
 Adds extra option to the kernel command line.
+
 
 \section{Concurrency Assignment}
 \begin{question}{1}
@@ -187,7 +186,53 @@ What did you learn?
 We learned more about some of the other random number generators, like rdrand and Mersenne Twister, and the difference between how these functions generate random numbers. In addition, we also discovered how to write in-line assembly. 
 
 \section{Version Control Log}
--- TODO at the very end...
+
+\begin{tabular}{lp{12cm}}
+  \label{tabular:legend:git-log}
+  \textbf{acronym} & \textbf{meaning} \\
+  V & \texttt{version} \\
+  tag & \texttt{git tag} \\
+  MF & Number of \texttt{modified files}. \\
+  AL & Number of \texttt{added lines}. \\
+  DL & Number of \texttt{deleted lines}. \\
+\end{tabular}
+
+\bigskip
+
+\iflanguage{ngerman}{\shorthandoff{"}}{}
+\begin{longtable}{|rllp{10cm}rrr|}
+\hline \multicolumn{1}{|c}{\textbf{V}} & \multicolumn{1}{c}{\textbf{tag}}
+& \multicolumn{1}{c}{\textbf{date}}
+& \multicolumn{1}{c}{\textbf{commit message}} & \multicolumn{1}{c}{\textbf{MF}}
+& \multicolumn{1}{c}{\textbf{AL}} & \multicolumn{1}{c|}{\textbf{DL}} \\ \hline
+\endhead
+
+\hline \multicolumn{7}{|r|}{\longtableendfoot} \\ \hline
+\endfoot
+
+\hline% \hline
+\endlastfoot
+
+\hline 1 &  & 2018-09-23 & Initial commit & 1 & 1 & 0 \\
+\hline 2 &  & 2018-09-23 & add mersenne generator file, create concurrency file and makefile & 3 & 188 & 0 \\
+\hline 3 &  & 2018-09-23 & add bufferNode struct & 0 & 0 & 0 \\
+\hline 4 &  & 2018-09-25 & Minor addition, run command for makefile. & 1 & 1 & 0 \\
+\hline 5 &  & 2018-09-25 & Fixed semicolon error with struct and modified makefile and include statements for mersenne.c & 2 & 15 & 10 \\
+\hline 6 &  & 2018-09-25 & Added -pthread option on gcc command line & 1 & 1 & 1 \\
+\hline 7 &  & 2018-09-25 & Added ability to create threads and produce and consume values, working on adding comments & 1 & 102 & 2 \\
+\hline 8 &  & 2018-09-26 & Added initial comments to the code & 1 & 32 & 3 \\
+\hline 9 &  & 2018-09-27 & Initial commit of LaTeX documentation files & 2 & 213 & 0 \\
+\hline 10 &  & 2018-10-05 & Added inline assembly to support hardware randomization & 1 & 22 & 2 \\
+\hline 11 &  & 2018-10-06 & Generate random number using rdrand32 & 2 & 5 & 3 \\
+\hline 12 &  & 2018-10-11 & Updated the print statements for the number of things in the buffer. & 1 & 3 & 3 \\
+\hline 13 &  & 2018-10-11 & Added .toc file to make clean & 1 & 1 & 1 \\
+\hline 14 &  & 2018-10-11 & Updated formatting in document & 1 & 43 & 7 \\
+\hline 15 &  & 2018-10-11 & Added abstract and remote target line for gdb & 1 & 3 & 2 \\
+\hline 16 &  & 2018-10-11 & Added work log to documentation & 1 & 50 & 7 \\
+\hline 17 &  & 2018-10-11 & Added clean option to makefile for concurrency & 1 & 4 & 0 \\
+\hline 18 &  & 2018-10-11 & added latex-git-log files & 5 & 466 & 0 \\
+\hline 19 &  & 2018-10-11 & Answered concurrency questions & 0 & 0 & 0 \\
+\end{longtable}
 
 \section{Work Log}
 
