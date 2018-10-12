@@ -77,13 +77,12 @@ void *producer(void *ptr) {
 		while (!complete) {
 			// If the buffer is full, wait for a consumer to consume and then retry
 			if (buffer_index >= BUFFER_SIZE - 1) {
-                                //pthread_mutex_unlock(&lock);
 				continue;
 			}
 			// Attempt to get the lock
 			if (pthread_mutex_trylock(&lock) != 0) {
-                                continue;
-                        }
+        continue;
+      }
 
 			// Increment the buffer item size
 			// printf("Producer created value %d, hang time %d seconds\n", new_buff_val.value, new_buff_val.hangTime);
@@ -91,7 +90,7 @@ void *producer(void *ptr) {
 			// Put the item in the buffer
 			buffer[buffer_index] = new_buff_val;
 			complete = 1;
-                        printf("Producer produced value %d\n", new_buff_val.value);
+      printf("Producer produced value %d\n", new_buff_val.value);
 			printf("Size of buffer: %d\n", buffer_index + 1);
 			// Remove the lock
 			pthread_mutex_unlock(&lock);
@@ -116,8 +115,8 @@ void *consumer(void *ptr) {
 			}
 			// Attempt to get the lock
 			if (pthread_mutex_trylock(&lock) != 0) {
-                                continue;
-                        }
+        continue;
+      }
 
 			// Get the values from the buffer item
 			int sleep_time = buffer[0].hangTime;
@@ -129,7 +128,7 @@ void *consumer(void *ptr) {
 			buffer_index--;
 			reconfigure_queue();
 			complete = 1;
-                        printf("Consumer consumed value %d\n", buffer_val);
+      printf("Consumer consumed value %d\n", buffer_val);
 			printf("Size of buffer: %d\n", buffer_index + 1);
 			// Remove the lock
 			pthread_mutex_unlock(&lock);
@@ -144,8 +143,8 @@ int main() {
 	init_genrand(1);
 
 	// Values to determine total producers and consumers
-	int num_producers = 32;
-	int num_consumers = 1;
+	int num_producers = 5;
+	int num_consumers = 5;
 	int total_threads = num_producers + num_consumers;
 	// Array to hold each of the threads
 	pthread_t threads[total_threads];
