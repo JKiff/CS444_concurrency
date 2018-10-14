@@ -1,10 +1,11 @@
 \documentclass[10pt,a4paper,english]{article}
+\usepackage[english]{babel}
 \usepackage{longtable,hyperref}
 \newcommand{\longtableendfoot}{Please continue at the next page}
 \usepackage[utf8]{inputenc}
 \usepackage{url}
 \usepackage{textcomp}
-\usepackage[vmargin=.75in, hmargin=.75in]{geometry}
+\usepackage[left=0.75in, right=0.75in, bottom=0.75in]{geometry}
 \usepackage{graphicx}	% For including graphics
 \newcommand\tab[1][1cm]{\hspace*{#1}}	% Controls tab spacing for /tab
 \newenvironment{question}[2][Question]	{\begin{trivlist}
@@ -199,8 +200,8 @@ We learned more about some of the other random number generators, like rdrand an
 
 \bigskip
 
-\iflanguage{ngerman}{\shorthandoff{"}}{}
-\begin{longtable}{|rllp{10cm}rrr|}
+%\iflanguage{ngerman}{\shorthandoff{"}}{}
+\begin{longtable}{|rllp{9cm}rrr|}
 \hline \multicolumn{1}{|c}{\textbf{V}} & \multicolumn{1}{c}{\textbf{tag}}
 & \multicolumn{1}{c}{\textbf{date}}
 & \multicolumn{1}{c}{\textbf{commit message}} & \multicolumn{1}{c}{\textbf{MF}}
@@ -266,15 +267,6 @@ We learned more about some of the other random number generators, like rdrand an
 \textit{\textbf{27 September, 2018}} \\\\
 \textbf{Documentation:} \\
 \indent We then worked on our makefile for tex and committed both our makefile and an initial set of documentation written in tex.
-\\\\
-
-\noindent
-\textit{\textbf{26 September, 2018}} \\\\
-\textbf{Kernel:} \\
-\indent No kernel changes.
-\\\\
-\textbf{Concurrency:} \\
-\indent No concurrency changes.
 \\\\
 
 \noindent
